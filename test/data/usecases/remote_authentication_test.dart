@@ -2,6 +2,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:conceitos/domain/helpers/helpers.dart';
 import 'package:conceitos/domain/usecases/usecases.dart';
 
 import 'package:conceitos/data/usecases/usecases.dart';
@@ -30,5 +31,15 @@ void main() {
       body: {'email': params.email, 'password': params.password}
       )
     );
+  });
+
+  test('Should throw UnexpectedError if HttpClient returns 400', () async {
+    when(httpClient.request(url: anyNamed('url'), method: anyNamed('method'), body: anyNamed('body')))
+      .thenThrow(HttpError.badRequest);
+
+    final params = AuthenticationParams(email: faker.internet.email(), password: faker.internet.password());
+    final future = sut.auth(params);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 }
