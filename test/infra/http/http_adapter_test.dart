@@ -1,11 +1,11 @@
 
-import 'package:conceitos/domain/helpers/helpers.dart';
+import 'package:ForDev/domain/helpers/helpers.dart';
 import 'package:faker/faker.dart';
 import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'package:conceitos/infra/http/http.dart';
+import 'package:ForDev/infra/http/http.dart';
 
 class ClientSpy extends Mock implements Client {
   
