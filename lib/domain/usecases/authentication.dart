@@ -12,7 +12,7 @@ class AuthenticationParams extends Equatable {
   final String password;
 
   @override
-  List get props => [email, password];
+  List<Object> get props => [email, password];
 
   AuthenticationParams({
     @required this.email,

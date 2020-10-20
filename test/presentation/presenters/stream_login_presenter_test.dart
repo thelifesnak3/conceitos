@@ -49,13 +49,13 @@ void main() {
     mockAuthentication();
   });
 
-  test('Shoul call Validation with correct email', () {
+  test('Should call Validation with correct email', () {
     sut.validateEmail(email);
 
     verify(validation.validate(field: 'email', value: email)).called(1);
   });
 
-  test('Shoul emit email error if validateEmail fails', () {
+  test('Should emit email error if validateEmail fails', () {
       mockValidation(value: 'error');
 
     sut.emailErrorStream.listen(expectAsync1((error) => expect(error, 'error')));
@@ -65,7 +65,7 @@ void main() {
     sut.validateEmail(email);
   });
 
-  test('Shoul emit nul if validateEmail succeeds', () {
+  test('Should emit nul if validateEmail succeeds', () {
     sut.emailErrorStream.listen(expectAsync1((error) => expect(error, null)));
     sut.isFormValidStream.listen(expectAsync1((isValid) => expect(isValid, false)));
 
@@ -73,13 +73,13 @@ void main() {
     sut.validateEmail(email);
   });
 
-  test('Shoul call Validation with correct password', () {
+  test('Should call Validation with correct password', () {
     sut.validatePassword(password);
 
     verify(validation.validate(field: 'password', value: password)).called(1);
   });
 
-  test('Shoul emit password error if validatePassword fails', () {
+  test('Should emit password error if validatePassword fails', () {
       mockValidation(value: 'error');
 
     sut.passwordErrorStream.listen(expectAsync1((error) => expect(error, 'error')));
@@ -89,7 +89,7 @@ void main() {
     sut.validatePassword(password);
   });
 
-  test('Shoul emit password error if validatePassword fails', () {
+  test('Should emit password error if validatePassword fails', () {
     sut.passwordErrorStream.listen(expectAsync1((error) => expect(error, null)));
     sut.isFormValidStream.listen(expectAsync1((isValid) => expect(isValid, false)));
 
@@ -97,7 +97,7 @@ void main() {
     sut.validatePassword(password);
   });
 
-  test('Shoul emit password error if validatePassword fails', () {
+  test('Should emit password error if validatePassword fails', () {
     mockValidation(field: 'email', value: 'error');
 
     sut.emailErrorStream.listen(expectAsync1((error) => expect(error, 'error')));
@@ -108,7 +108,7 @@ void main() {
     sut.validatePassword(password);
   });
 
-  test('Shoul isFormValid true if emailErrorStream and passwordErrorStream is null', () async {
+  test('Should isFormValid true if emailErrorStream and passwordErrorStream is null', () async {
     sut.emailErrorStream.listen(expectAsync1((error) => expect(error, null)));
     sut.passwordErrorStream.listen(expectAsync1((error) => expect(error, null)));
     
@@ -119,7 +119,7 @@ void main() {
     sut.validatePassword(password);
   });
 
-  test('Shoul call Authentication with correct values', () async {
+  test('Should call Authentication with correct values', () async {
     sut.validateEmail(email);
     sut.validatePassword(password);
 
@@ -128,7 +128,7 @@ void main() {
     verify(authentication.auth(AuthenticationParams(email: email, password: password))).called(1);
   });
 
-  test('Shoul emit correct events on Authentication success', () async {
+  test('Should emit correct events on Authentication success', () async {
     sut.validateEmail(email);
     sut.validatePassword(password);
 
@@ -137,7 +137,7 @@ void main() {
     await sut.auth();
   });
 
-  test('Shoul emit correct events on InvalidCredentialsError', () async {
+  test('Should emit correct events on InvalidCredentialsError', () async {
     mockAuthenticationError(DomainError.invalidCredentials);
     sut.validateEmail(email);
     sut.validatePassword(password);
@@ -148,7 +148,7 @@ void main() {
     await sut.auth();
   });
 
-  test('Shoul emit correct events on UnexpectedError', () async {
+  test('Should emit correct events on UnexpectedError', () async {
     mockAuthenticationError(DomainError.unexpected);
     sut.validateEmail(email);
     sut.validatePassword(password);
@@ -159,7 +159,7 @@ void main() {
     await sut.auth();
   });
 
-  test('Shoul not emit after dispose', () async {
+  test('Should not emit after dispose', () async {
     expectLater(sut.emailErrorStream, neverEmits(null));
 
     sut.dispose();
